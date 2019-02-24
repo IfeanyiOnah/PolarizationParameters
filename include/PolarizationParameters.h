@@ -13,7 +13,7 @@ namespace  PolPara {
 	namespace Container
 	{
 		struct Parameters {
-			vector<cv::Mat> Input,Output;
+			vector<cv::Mat> Input;
 			cv::Mat Intensity, AoLP, DoLP, Azimuth, Zenith;
 			cv::Mat Normal_x, Normal_y, Normal_z;
 		};
@@ -32,19 +32,8 @@ namespace  PolPara {
 		/** \brief: existing algorithms already implemented for demosaicing */
 		enum polTypes { DIFFUSE, SPECULAR };
 
-			//member function
-			int executePolarizationParameters();
-
-
-	protected:
-		void  imgSplit(const cv::Mat input, std::vector<cv::Mat>&output);
-		void imgSave(cv::Mat img, string filepath, string format);
-		void calculateAOP(cv::Mat S1, cv::Mat S2, cv::Mat& AOP);
-		void calculateDOP(cv::Mat S1, cv::Mat S2, cv::Mat& DOLP);
-		void calculateAzimuth(cv::Mat AOP, cv::Mat &Azimuth);
-		void calcZenith(const cv::Mat DoP, cv::Mat &Zenith, double n = 1.5);
-
-
+		//member function
+		int executePolarizationParameters();
 		/*******************************************************************************
 * @fn:	setMethod
 *
@@ -54,6 +43,13 @@ namespace  PolPara {
 */
 		void setMethod(polTypes typ);
 
+	protected:
+		void  imgSplit(cv::Mat input, std::vector<cv::Mat>&output);
+		void imgSave(cv::Mat img, string filepath, string format);
+		void calculateAOP(cv::Mat S1, cv::Mat S2, cv::Mat& AOP);
+		void calculateDOP(cv::Mat S1, cv::Mat S2, cv::Mat& DOLP);
+		void calculateAzimuth(cv::Mat AOP, cv::Mat &Azimuth);
+		void calcZenith(const cv::Mat DoP, cv::Mat &Zenith, double n = 1.5);
 	private:
 
 		string typ;
